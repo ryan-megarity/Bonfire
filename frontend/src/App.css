@@ -7,6 +7,9 @@ body {
 .fire-logo {
   min-width: 5vw;
 }
+.fire-nav-logo {
+  min-width: 3vw;
+}
 
 .highlight-slogan {
   color: red;
