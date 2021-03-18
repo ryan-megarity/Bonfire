@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Bonfire
+
+Where the people make the playlist
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
