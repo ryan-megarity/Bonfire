@@ -28,3 +28,8 @@ body {
 .spotify-logo {
   max-height: 5vh;
 }
+
+.app {
+  background-color: rgba(255, 0, 0, 0.726);
+  min-height: 100vh;
+}

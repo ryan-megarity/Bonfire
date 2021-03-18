@@ -5,9 +5,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PartyRoom } from "./Components/PartyRoom";
 import { TopNav } from "./Components/TopNav";
 
+
+
 export const App = () => {
+  const code = new URLSearchParams(window.location.search).get("code")
+  console.log(code);
   return (
-    <div>
+    <div className="app">
       <Router>
         <Switch>
           <Route exact path="/">
@@ -15,7 +19,7 @@ export const App = () => {
           </Route>
           <Route path="/party">
             <TopNav />
-            <PartyRoom />
+            <PartyRoom code={code}/>
           </Route>
         </Switch>
       </Router>
