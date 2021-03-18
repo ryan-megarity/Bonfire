@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
+import Login from "./Login";
 
 export const RoomCodeModal = (props: {
   show: any;
@@ -36,7 +37,9 @@ export const RoomCodeModal = (props: {
             <Modal.Header closeButton>
               <Modal.Title>START THE FIRE</Modal.Title>
             </Modal.Header>
-            <Modal.Body>SELECT OPTIONS</Modal.Body>
+            <Modal.Body>
+              <Login />
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={props.handleClose}>
                 CLOSE
