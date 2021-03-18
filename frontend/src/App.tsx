@@ -6,9 +6,8 @@ import { PartyRoom } from "./Components/PartyRoom";
 import { TopNav } from "./Components/TopNav";
 
 
-
 export const App = () => {
-  const code = new URLSearchParams(window.location.search).get("code")
+  const code = new URLSearchParams(window.location.search).get("code");
   console.log(code);
   return (
     <div className="app">
@@ -19,7 +18,7 @@ export const App = () => {
           </Route>
           <Route path="/party">
             <TopNav />
-            <PartyRoom code={code}/>
+            <PartyRoom code={code} />
           </Route>
         </Switch>
       </Router>
