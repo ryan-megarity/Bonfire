@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
-import Login from "./Login";
+import { Login } from "./Login";
 
 export const RoomCodeModal = (props: {
   show: any;
