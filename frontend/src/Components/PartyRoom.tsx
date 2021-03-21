@@ -1,19 +1,30 @@
 import React from "react";
 import { useState } from "react";
 import { Player } from "./Player";
+import { Search } from "./Search";
 import { useAuth } from "./useAuth";
 
-export const PartyRoom = ({ code }: any) => {
+export const PartyRoom = ({
+  code,
+  isRoomOwner,
+  setRoomOwner,
+  roomCode,
+  setRoomCode,
+}: any) => {
   const accessToken = useAuth(code);
-  console.log(code);
   const [trackUri, setTrackUri] = useState(
     "spotify:track:7lEptt4wbM0yJTvSG5EBof"
   );
-  console.log(accessToken);
+  //console.log(accessToken);
   return (
     <>
-      <h2>Here's the Party</h2>
-      <Player accessToken={accessToken} trackUri={trackUri}></Player>
+      {isRoomOwner && (
+        <>
+          <Player accessToken={accessToken} trackUri={trackUri}></Player>
+          <Search setTrackUri={setTrackUri}  accessToken={accessToken} />
+        </>
+      )}
+      {!isRoomOwner}
     </>
   );
 };

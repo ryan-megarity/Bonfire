@@ -8,6 +8,7 @@ export const Player = ({ accessToken, trackUri }: any) => {
 
   if (!accessToken) return null;
   return (
+    <>
     <SpotifyPlayer
       token={accessToken}
       showSaveIcon
@@ -17,5 +18,6 @@ export const Player = ({ accessToken, trackUri }: any) => {
       play={play}
       uris={trackUri ? [trackUri] : []}
     />
+    </>
   );
 }

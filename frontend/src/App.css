@@ -5,7 +5,7 @@ body {
 }
 
 .fire-logo {
-  min-width: 5vw;
+  min-width: 10vw;
 }
 .fire-nav-logo {
   min-width: 3vw;
@@ -20,9 +20,16 @@ body {
   justify-content: space-evenly;
 }
 
+.button {
+  margin: 30px;
+}
+
 .header {
   margin: 0;
-  min-height: 20vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .spotify-logo {
@@ -30,6 +37,12 @@ body {
 }
 
 .app {
-  background-color: rgba(255, 0, 0, 0.726);
   min-height: 100vh;
+}
+
+@media (max-width: 600px) {
+  .home-buttons {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -3,17 +3,27 @@ import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import { RoomCodeModal } from "./RoomCodeModal";
 
-export const Home = () => {
+export const Home = ({ isRoomOwner, setIsRoomOwner, roomCode, setRoomCode }: any) => {
   const [show, setShow] = useState(false);
   const [roomType, setRoomType] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = useCallback(
     (type) => {
+      if (type === "create") {
+        setIsRoomOwner(true);
+        localStorage.setItem('roomOwner', 'true');
+        setRoomCode("0001");
+        localStorage.setItem("roomCode", "0001");
+      }
+      if (type === "join") {
+        setIsRoomOwner(false);
+        localStorage.setItem('roomOwner', 'false');  
+      }
       setRoomType(type);
       setShow(true);
     },
-    [setShow, setRoomType]
+    [setShow, setRoomType, setIsRoomOwner, setRoomCode]
   );
 
   return (
@@ -32,15 +42,15 @@ export const Home = () => {
           <span className="highlight-slogan">playlist</span>.
         </p>
         <div className="home-buttons">
-          <Button className="btn-danger" onClick={() => handleShow("create")}>
-            START THE FIRE
+          <Button className="btn-danger button" onClick={() => handleShow("create")}>
+            START A FIRE
           </Button>
-          <Button className="btn-warning" onClick={() => handleShow("join")}>
-            JOIN A FIRESTARTER
+          <Button className="btn-warning button" onClick={() => handleShow("join")}>
+            JOIN A FIRE
           </Button>
         </div>
       </Jumbotron>
-      <RoomCodeModal show={show} handleClose={handleClose} type={roomType} />
+      <RoomCodeModal show={show} handleClose={handleClose} type={roomType} roomCode={roomCode} setRoomCode={setRoomCode}/>
     </div>
   );
 };

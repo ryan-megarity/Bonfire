@@ -18,7 +18,7 @@ export const useAuth = (code: any) => {
         window.history.pushState({}, '', "/");
       })
       .catch(() => {
-        window.location.href = "/";
+        //window.location.href = "/";
       });
   }, [code]);
 
@@ -34,7 +34,7 @@ export const useAuth = (code: any) => {
           setExpiresIn(res.data.expiresIn);
         })
         .catch(() => {
-          window.location.href = "/";
+          //window.location.href = "/";
         });
     }, (expiresIn - 60) * 1000);
 
