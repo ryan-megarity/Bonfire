@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { TrackSearchResult } from "./TrackSearchResult";
 import SpotifyWebApi from "spotify-web-api-node";
+import Jumbotron from "react-bootstrap/Jumbotron";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "8b945ef10ea24755b83ac50cede405a0",
@@ -66,22 +67,24 @@ export const Search = ({ setTrackUri, accessToken }: any) => {
 
   return (
     <div>
-      <h4>Add to Queue</h4>
-      <Form.Control
-        type="search"
-        placeholder="Search Songs/Artists"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
-        {searchResults.map((track: any) => (
-          <TrackSearchResult
-            track={track}
-            key={track.uri}
-            addToQueue={addToQueue}
-          />
-        ))}
-      </div>
+      <Jumbotron fluid className="search-box">
+        <h4>Add to Queue</h4>
+        <Form.Control
+          type="search"
+          placeholder="Search Songs/Artists"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
+          {searchResults.map((track: any) => (
+            <TrackSearchResult
+              track={track}
+              key={track.uri}
+              addToQueue={addToQueue}
+            />
+          ))}
+        </div>
+      </Jumbotron>
     </div>
   );
 };

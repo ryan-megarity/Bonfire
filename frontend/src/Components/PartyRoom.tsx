@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Connected } from "./Connected";
 import { Player } from "./Player";
 import { Search } from "./Search";
 import { useAuth } from "./useAuth";
@@ -20,8 +21,9 @@ export const PartyRoom = ({
     <>
       {isRoomOwner && (
         <>
+          <Connected accessToken={accessToken}/>
           <Player accessToken={accessToken} trackUri={trackUri}></Player>
-          <Search setTrackUri={setTrackUri}  accessToken={accessToken} />
+          <Search setTrackUri={setTrackUri} accessToken={accessToken} />
         </>
       )}
       {!isRoomOwner}

@@ -46,3 +46,18 @@ body {
     flex-direction: column;
   }
 }
+
+.search-box {
+  margin: 0px;
+  padding: 30px;
+}
+
+.player {
+  margin: 0px;
+  padding: 30px;
+}
+
+.spotify-banner {
+  margin: 0px;
+  padding: 10px;
+}
