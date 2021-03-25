@@ -13,8 +13,8 @@ export const Search = ({ setTrackUri, accessToken }: any) => {
   const [searchResults, setSearchResults] = useState([]);
 
   const addToQueue = (track: any) => {
-    //setTrackUri(track.uri);
-    spotifyApi.addToQueue(track.uri);
+    setTrackUri(track.uri);
+    //spotifyApi.addToQueue(track.uri);
     setSearch("");
   };
 
