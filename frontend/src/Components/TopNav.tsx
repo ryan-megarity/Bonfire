@@ -14,10 +14,10 @@ export const TopNav = ({ isRoomOwner, roomCode }: any) => {
         ></img>
         Bonfire
       </Navbar.Brand>
-      <Navbar.Brand>
+      <Navbar.Brand style={{ fontSize: "0.75em" }}>
         <NavDropdown title={`Room: ${roomCode}`} id="collasible-nav-dropdown">
           {peopleInRoom.map((person) => {
-            return <NavDropdown.Item  key={person}>{person}</NavDropdown.Item>;
+            return <NavDropdown.Item key={person}>{person}</NavDropdown.Item>;
           })}
         </NavDropdown>
       </Navbar.Brand>
