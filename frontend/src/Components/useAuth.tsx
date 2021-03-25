@@ -8,7 +8,7 @@ export const useAuth = (code: any) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/login", {
+      .post("https://us-central1-bonfire-958c8.cloudfunctions.net/login/", {
         code,
       })
       .then((res) => {
@@ -26,7 +26,7 @@ export const useAuth = (code: any) => {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("http://localhost:3001/refresh", {
+        .post("https://us-central1-bonfire-958c8.cloudfunctions.net/refresh", {
           refreshToken,
         })
         .then((res) => {

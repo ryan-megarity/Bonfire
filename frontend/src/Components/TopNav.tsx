@@ -17,7 +17,7 @@ export const TopNav = ({ isRoomOwner, roomCode }: any) => {
       <Navbar.Brand>
         <NavDropdown title={`Room: ${roomCode}`} id="collasible-nav-dropdown">
           {peopleInRoom.map((person) => {
-            return <NavDropdown.Item>{person}</NavDropdown.Item>;
+            return <NavDropdown.Item  key={person}>{person}</NavDropdown.Item>;
           })}
         </NavDropdown>
       </Navbar.Brand>
