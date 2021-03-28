@@ -75,10 +75,17 @@ exports.login = functions.https.onRequest(async (req, res) =>
           refreshToken: data.body.refresh_token,
           expiresIn: data.body.expires_in,
         };
-        // const writeResult = await admin
-        //   .firestore()
-        //   .collection("keys")
-        //   .add(accessObject);
+        const roomObject = {
+          accessObject,
+          
+        }
+
+        const writeKeysResult = await admin
+          .firestore()
+          .collection("keys")
+          .add(accessObject);
+
+        
         res.json({ ...accessObject /* , databaseId: writeResult.id*/ });
       })
       .catch((err) => {

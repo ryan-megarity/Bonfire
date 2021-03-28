@@ -5,28 +5,31 @@ export const useAuth = (code: any) => {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState(0);
-
+  const ENDPOINT =
+    process.env.NODE_ENV === "development" //create-react-app sets 'development' in npm start and 'production' in build
+      ? "http://localhost:3001"
+      : "https://us-central1-bonfire-958c8.cloudfunctions.net";
   useEffect(() => {
     axios
-      .post("https://us-central1-bonfire-958c8.cloudfunctions.net/login/", {
+      .post(`${ENDPOINT}/login`, {
         code,
       })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
-        window.history.pushState({}, '', "/");
+        window.history.pushState({}, "", "/");
       })
       .catch(() => {
         //window.location.href = "/";
       });
-  }, [code]);
+  }, [ENDPOINT, code]);
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("https://us-central1-bonfire-958c8.cloudfunctions.net/refresh", {
+        .post(`${ENDPOINT}/refresh`, {
           refreshToken,
         })
         .then((res) => {
@@ -39,7 +42,7 @@ export const useAuth = (code: any) => {
     }, (expiresIn - 60) * 1000);
 
     return () => clearInterval(interval);
-  }, [refreshToken, expiresIn]);
+  }, [refreshToken, expiresIn, ENDPOINT]);
 
   return accessToken;
-}
+};
