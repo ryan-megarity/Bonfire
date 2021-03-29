@@ -13,8 +13,8 @@ export const Home = ({ isRoomOwner, setIsRoomOwner, roomCode, setRoomCode }: any
       if (type === "create") {
         setIsRoomOwner(true);
         localStorage.setItem('roomOwner', 'true');
-        setRoomCode("0001");
-        localStorage.setItem("roomCode", "0001");
+        //setRoomCode("0001");
+        //localStorage.setItem("roomCode", "0001");
       }
       if (type === "join") {
         setIsRoomOwner(false);
@@ -23,7 +23,7 @@ export const Home = ({ isRoomOwner, setIsRoomOwner, roomCode, setRoomCode }: any
       setRoomType(type);
       setShow(true);
     },
-    [setShow, setRoomType, setIsRoomOwner, setRoomCode]
+    [setShow, setRoomType, setIsRoomOwner]
   );
 
   return (

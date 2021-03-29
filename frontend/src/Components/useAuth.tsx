@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useAuth = (code: any) => {
+export const useAuth = (code: any, setRoomCode: any) => {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState(0);
   const ENDPOINT =
     process.env.NODE_ENV === "development" //create-react-app sets 'development' in npm start and 'production' in build
-      ? "http://localhost:3001"
+      ? "http://localhost:5001/bonfire-958c8/us-central1"
       : "https://us-central1-bonfire-958c8.cloudfunctions.net";
   useEffect(() => {
     axios
@@ -15,15 +15,17 @@ export const useAuth = (code: any) => {
         code,
       })
       .then((res) => {
-        setAccessToken(res.data.accessToken);
-        setRefreshToken(res.data.refreshToken);
-        setExpiresIn(res.data.expiresIn);
+        setAccessToken(res.data.accessObject.accessToken);
+        setRefreshToken(res.data.accessObject.refreshToken);
+        setExpiresIn(res.data.accessObject.expiresIn);
+        setRoomCode(res.data.roomCode);
+        localStorage.setItem("roomCode", res.data.roomCode);
         window.history.pushState({}, "", "/");
       })
       .catch(() => {
         //window.location.href = "/";
       });
-  }, [ENDPOINT, code]);
+  }, [ENDPOINT, code, setRoomCode]);
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;

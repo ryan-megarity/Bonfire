@@ -12,7 +12,7 @@ export const PartyRoom = ({
   roomCode,
   setRoomCode,
 }: any) => {
-  const accessToken = useAuth(code);
+  const accessToken = useAuth(code, setRoomCode);
   const [trackUri, setTrackUri] = useState(
     "spotify:track:7lEptt4wbM0yJTvSG5EBof"
   );
