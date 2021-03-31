@@ -65,7 +65,7 @@ exports.login = functions.https.onRequest(async (req, res) =>
         };
         const roomObject = {
           accessObject,
-          roomCode: "0069",
+          queue: ["spotify:track:7lEptt4wbM0yJTvSG5EBof"],
         };
         const writeRoomResult = await admin
           .firestore()
@@ -77,5 +77,34 @@ exports.login = functions.https.onRequest(async (req, res) =>
         console.log(err);
         res.sendStatus(400);
       });
+  })
+);
+
+exports.getRoom = functions.https.onRequest(async (req, res) =>
+  corsHandler(req, res, () => {
+    console.log(req.body);
+    const roomCode = req.body.roomCode;
+    if (roomCode) {
+      const roomObjectRef = admin.firestore().collection("rooms").doc(roomCode);
+
+      roomObjectRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+            res.json(doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            res.sendStatus(404);
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+          res.sendStatus(400);
+        });
+    } else {
+      res.send(500);
+    }
   })
 );

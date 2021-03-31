@@ -20,9 +20,7 @@ export const RoomCodeModal = ({
     setLoading(true);
     setRoomCode(roomCodeRef.current?.value || "null");
     localStorage.setItem("roomCode", roomCodeRef.current?.value || "null");
-    setTimeout(() => {
-      history.push("/party");
-    }, 1500);
+    history.push("/party");
   };
 
   return (
@@ -62,10 +60,7 @@ export const RoomCodeModal = ({
               <Button variant="secondary" onClick={handleClose}>
                 CLOSE
               </Button>
-              <Button
-                variant="success"
-                onClick={goToParty}
-              >
+              <Button variant="success" onClick={goToParty}>
                 JOIN
               </Button>
             </Modal.Footer>

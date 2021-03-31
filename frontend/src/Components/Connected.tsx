@@ -6,12 +6,12 @@ export const Connected = ({ accessToken }: any) => {
     <div>
       {accessToken && (
         <Jumbotron className="bg-success text-white spotify-banner" fluid>
-          <h4>Connected to spotify</h4>
+          <h5>Connected to spotify</h5>
         </Jumbotron>
       )}
       {!accessToken && (
         <Jumbotron className="bg-danger text-white spotify-banner" fluid>
-          <h4>Disonnected from spotify</h4>
+          <h5>Disonnected from spotify</h5>
         </Jumbotron>
       )}
     </div>

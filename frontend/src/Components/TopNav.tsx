@@ -1,9 +1,7 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 
 export const TopNav = ({ isRoomOwner, roomCode }: any) => {
-  let peopleInRoom = ["(You)", "Rob", "Drinky", "Louis"];
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Navbar.Brand href="/">
@@ -15,11 +13,7 @@ export const TopNav = ({ isRoomOwner, roomCode }: any) => {
         Bonfire
       </Navbar.Brand>
       <Navbar.Brand style={{ fontSize: "0.75em" }}>
-        <NavDropdown title={`Room: ${roomCode}`} id="collasible-nav-dropdown">
-          {peopleInRoom.map((person) => {
-            return <NavDropdown.Item key={person}>{person}</NavDropdown.Item>;
-          })}
-        </NavDropdown>
+        {!roomCode ? roomCode : "Room Not Found"}
       </Navbar.Brand>
     </Navbar>
   );

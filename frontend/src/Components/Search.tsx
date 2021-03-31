@@ -32,12 +32,9 @@ export const Search = ({ setTrackUri, accessToken }: any) => {
 
     let cancel = false;
     spotifyApi.searchTracks(search).then((res: any) => {
-      console.log("here");
       if (cancel) {
-        console.log("here3");
         return;
       }
-      console.log("here2");
       setSearchResults(
         res.body.tracks.items.map(
           (track: {
