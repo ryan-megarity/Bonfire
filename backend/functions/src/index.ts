@@ -41,14 +41,7 @@ exports.refresh = functions.https.onRequest(async (req, res) =>
 
 exports.login = functions.https.onRequest(async (req, res) =>
   corsHandler(req, res, () => {
-    console.log(req.body);
     const code = req.body.code;
-    console.log({ code: code });
-    console.log({
-      redirectUri: process.env.REDIRECT_URI,
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-    });
     const spotifyApi = new SpotifyWebApi({
       redirectUri: process.env.REDIRECT_URI,
       clientId: process.env.CLIENT_ID,
@@ -65,7 +58,17 @@ exports.login = functions.https.onRequest(async (req, res) =>
         };
         const roomObject = {
           accessObject,
-          queue: ["spotify:track:7lEptt4wbM0yJTvSG5EBof"],
+          queue: [
+            {
+              artist: "The Prodigy",
+              title: "Firestarter",
+              uri: "spotify:track:79CUrU5o2KAVDTNm4x3eGU",
+              albumUrl:
+                "https://i.scdn.co/image/ab67616d00004851fa0b74121608a007af87a3fe",
+            },
+          ],
+          createdDate: new Date(),
+          lastModifiedDate: new Date(),
         };
         const writeRoomResult = await admin
           .firestore()
@@ -104,7 +107,86 @@ exports.getRoom = functions.https.onRequest(async (req, res) =>
           res.sendStatus(400);
         });
     } else {
-      res.send(500);
+      res.sendStatus(500);
+    }
+  })
+);
+
+exports.addToQueue = functions.https.onRequest(async (req, res) =>
+  corsHandler(req, res, () => {
+    console.log(req.body);
+    const roomCode = req.body.roomCode;
+    // const accessToken = req.body.accessToken;
+    const track = req.body.track;
+    if (roomCode) {
+      const roomObjectRef = admin.firestore().collection("rooms").doc(roomCode);
+
+      roomObjectRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const data = doc.data() || {};
+            console.log("Document data:", data);
+            const updatedRoom = {
+              ...data,
+              queue: [...data.queue, track],
+              lastModifiedDate: new Date(),
+            };
+            roomObjectRef.set(updatedRoom);
+            res.json(updatedRoom);
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            res.sendStatus(404);
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+          res.sendStatus(400);
+        });
+    } else {
+      res.sendStatus(500);
+    }
+  })
+);
+
+exports.removeFromQueue = functions.https.onRequest(async (req, res) =>
+  corsHandler(req, res, () => {
+    console.log(req.body);
+    const roomCode = req.body.roomCode;
+    // const accessToken = req.body.accessToken;
+    const track = req.body.track;
+    if (roomCode) {
+      const roomObjectRef = admin.firestore().collection("rooms").doc(roomCode);
+
+      roomObjectRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const data = doc.data() || {};
+            console.log("Document data:", data);
+            console.log(track);
+            const updatedRoom = {
+              ...data,
+              queue: data.queue.filter(
+                (t: { uri: string }) => t.uri !== track.uri
+              ),
+              lastModifiedDate: new Date(),
+            };
+            roomObjectRef.set(updatedRoom);
+            res.json(updatedRoom);
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            res.sendStatus(404);
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+          res.sendStatus(400);
+        });
+    } else {
+      res.sendStatus(500);
     }
   })
 );

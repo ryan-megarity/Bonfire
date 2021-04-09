@@ -7,6 +7,7 @@ import { Search } from "./Search";
 import { useAuth } from "./useAuth";
 
 export const PartyRoom = ({
+  ENDPOINT,
   code,
   isRoomOwner,
   setRoomOwner,
@@ -14,12 +15,16 @@ export const PartyRoom = ({
   setRoomCode,
 }: any) => {
   const [queue, setQueue] = useState([]);
+  const [loading, setLoading] = useState(false);
   const accessToken = useAuth(
+    ENDPOINT,
     code,
     roomCode,
     setRoomCode,
     isRoomOwner,
-    setQueue
+    setQueue,
+    loading,
+    setLoading
   );
   const [trackUri, setTrackUri] = useState();
 
@@ -27,22 +32,30 @@ export const PartyRoom = ({
     <>
       {isRoomOwner && (
         <>
-          <Connected accessToken={accessToken} />
+          <Connected accessToken={accessToken} loading={loading} />
           <Player
+            ENDPOINT={ENDPOINT}
             accessToken={accessToken}
             trackUri={trackUri}
             setTrackUri={setTrackUri}
             queue={queue}
+            setQueue={setQueue}
+            roomCode={roomCode}
           ></Player>
           <Queue queue={queue} />
-          <Search setTrackUri={setTrackUri} accessToken={accessToken} />
+          <Search
+            ENDPOINT={ENDPOINT}
+            setQueue={setQueue}
+            accessToken={accessToken}
+            roomCode={roomCode}
+          />
         </>
       )}
       {!isRoomOwner && (
         <>
           <Connected accessToken={accessToken} />
           <Queue queue={queue} />
-          <Search setTrackUri={setTrackUri} accessToken={accessToken} />
+          <Search setQueue={setQueue} accessToken={accessToken} />
         </>
       )}
     </>

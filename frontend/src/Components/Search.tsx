@@ -3,18 +3,31 @@ import Form from "react-bootstrap/Form";
 import { TrackSearchResult } from "./TrackSearchResult";
 import SpotifyWebApi from "spotify-web-api-node";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import axios from "axios";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "8b945ef10ea24755b83ac50cede405a0",
 });
 
-export const Search = ({ setTrackUri, accessToken }: any) => {
+export const Search = ({ ENDPOINT, setQueue, accessToken, roomCode }: any) => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const addToQueue = (track: any) => {
-    setTrackUri(track.uri);
-    //spotifyApi.addToQueue(track.uri);
+    axios
+        .post(`${ENDPOINT}/addToQueue`, {
+          roomCode,
+          accessToken,
+          track
+        })
+        .then((res) => {
+          console.log(res.data);
+          setQueue(res.data.queue);
+          
+        })
+        .catch(() => {
+          console.log("failed to add to queue")
+        });
     setSearch("");
   };
 

@@ -13,7 +13,7 @@ export const TopNav = ({ isRoomOwner, roomCode }: any) => {
         Bonfire
       </Navbar.Brand>
       <Navbar.Brand style={{ fontSize: "0.75em" }}>
-        {!roomCode ? roomCode : "Room Not Found"}
+        {roomCode ? roomCode : "Room Not Found"}
       </Navbar.Brand>
     </Navbar>
   );

@@ -9,6 +9,10 @@ export const App = () => {
   const code = new URLSearchParams(window.location.search).get("code");
   const [isRoomOwner, setIsRoomOwner] = useState(!!localStorage.getItem('roomOwner') || false);
   const [roomCode, setRoomCode] = useState(localStorage.getItem('roomCode') || '');
+  const ENDPOINT =
+  process.env.NODE_ENV === "development" //create-react-app sets 'development' in npm start and 'production' in build
+    ? "http://localhost:5001/bonfire-958c8/us-central1"
+    : "https://us-central1-bonfire-958c8.cloudfunctions.net";
   return (
     <div className="app">
       <Router>
@@ -18,7 +22,7 @@ export const App = () => {
           </Route>
           <Route path="/party">
             <TopNav isRoomOwner={isRoomOwner} roomCode={roomCode}/>
-            <PartyRoom code={code} isRoomOwner={isRoomOwner} setRoomOwner={setIsRoomOwner} roomCode={roomCode} setRoomCode={setRoomCode} />
+            <PartyRoom ENDPOINT={ENDPOINT} code={code} isRoomOwner={isRoomOwner} setRoomOwner={setIsRoomOwner} roomCode={roomCode} setRoomCode={setRoomCode} />
           </Route>
         </Switch>
       </Router>
